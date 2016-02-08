@@ -1,0 +1,3 @@
+package: go-web-oreilly
+import:
+- package: github.com/gorilla/websocket
