@@ -1,18 +1,17 @@
 package main
+
 import (
-	"net/http"
 	"log"
-	"sync"
-"text/template"
+	"net/http"
 	"path/filepath"
+	"sync"
+	"text/template"
 )
 
-
 type templateHandler struct {
-
-	once sync.Once
+	once     sync.Once
 	filename string
-	templ *template.Template
+	templ    *template.Template
 }
 
 func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -21,16 +20,15 @@ func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// また、本当に必要になるまで処理を後回しにする遅延初期化の役割ももつ。
 	// ただし、エラーが発生しうる処理の場合、エラーに気づきにくくなる問題もあるので、
 	// `template.Must`を使ってグローバル変数に初期化時にセットする方が好まれる場合もある。
-	t.once.Do(func(){
+	t.once.Do(func() {
 		t.templ = template.Must(template.ParseFiles(filepath.Join("templates", t.filename)))
 	})
 	t.templ.Execute(w, nil)
 }
 
-
 func main() {
 
-	http.Handle("/", &templateHandler{filename:"chat.html"})
+	http.Handle("/", &templateHandler{filename: "chat.html"})
 
 	if err := http.ListenAndServe(":9000", nil); err != nil {
 		log.Fatal("ListenAndServe:", err)
