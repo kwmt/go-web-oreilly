@@ -37,7 +37,7 @@ func (r *room) run() {
 			// 退室
 			delete(r.clients, client)
 			close(client.send)
-		case msg := r.forward:
+		case msg := <- r.forward:
 			// すべてのクライアントにメッセージを転送
 			for client := range r.clients {
 				select {
