@@ -1,12 +1,12 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"net/http"
 	"path/filepath"
 	"sync"
 	"text/template"
-	"flag"
 )
 
 type templateHandler struct {
