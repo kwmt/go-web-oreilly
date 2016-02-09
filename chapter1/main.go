@@ -7,8 +7,6 @@ import (
 	"sync"
 	"text/template"
 	"flag"
-	"os"
-	"go-web-oreilly/chapter1/trace"
 )
 
 type templateHandler struct {
@@ -37,7 +35,6 @@ func main() {
 	flag.Parse() // フラグを解釈
 
 	r := newRoom()
-	r.tracer = trace.New(os.Stdout)
 	http.Handle("/", &templateHandler{filename: "chat.html"})
 	http.Handle("/room", r)
 
