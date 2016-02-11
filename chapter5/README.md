@@ -38,3 +38,8 @@ $ mv mongodb-linux-x86_64-debian71-3.2.1/bin/* /usr/local/bin/
 ```bash
 $ mongod --dbpath /tmp/
 ```
+
+MongoDBドライバーインストール
+
+```bash
+$ go get gopkg.in/mgo.v2

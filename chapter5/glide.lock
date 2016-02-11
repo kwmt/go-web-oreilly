@@ -1,5 +1,5 @@
-hash: e919c78ffd7543f3484923cc51810586074af358e5a128d807e00f18c89aea82
-updated: 2016-02-11T15:24:41.535391638Z
+hash: a787ad241c38f357632bf278e9f159fbfb0291f9c914e9349196866e63dcf514
+updated: 2016-02-11T15:45:22.953257264Z
 imports:
 - name: github.com/bitly/go-nsq
   version: 2118015c120962edc5d03325c680daf3163a8b5f
@@ -7,4 +7,9 @@ imports:
   version: 028eae7ab5c4c9e2d1cb4c4ca1e53259bbe7e504
   subpackages:
   - snappy-go
+- name: gopkg.in/mgo.v2
+  version: d90005c5262a3463800497ea5a89aed5fe22c886
+  subpackages:
+  - bson
+  - internal/scram
 devImports: []

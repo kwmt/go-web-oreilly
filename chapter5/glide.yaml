@@ -1,3 +1,4 @@
 package: go-web-oreilly
 import:
 - package: github.com/bitly/go-nsq
+- package: gopkg.in/mgo.v2
