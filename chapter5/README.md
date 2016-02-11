@@ -1,4 +1,6 @@
-NSQのインストール
+5.2.1 NSQ
+
+インストール
 参考 http://tleyden.github.io/blog/2014/11/12/an-example-of-using-nsq-from-go/
 
 
@@ -21,4 +23,18 @@ go-nsqをインストール
 
 ```bash
 $ go get -v github.com/bitly/go-nsq
+```
+
+5.2.2 Mongo DB
+
+```
+$ wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-debian71-3.2.1.tgz
+$ tar xvzf mongodb-linux-x86_64-debian71-3.2.1.tgz 
+$ mv mongodb-linux-x86_64-debian71-3.2.1/bin/* /usr/local/bin/
+```
+
+起動確認
+
+```bash
+$ mongod --dbpath /tmp/
 ```
