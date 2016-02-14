@@ -1,8 +1,14 @@
-hash: a787ad241c38f357632bf278e9f159fbfb0291f9c914e9349196866e63dcf514
-updated: 2016-02-11T15:45:22.953257264Z
+hash: 741174605253e09894e762e2ef7928a47d08925846e81607035f5260e626fbb2
+updated: 2016-02-14T06:53:56.734866021Z
 imports:
 - name: github.com/bitly/go-nsq
   version: 2118015c120962edc5d03325c680daf3163a8b5f
+- name: github.com/garyburd/go-oauth
+  version: 255d509a6f270332ffcaef6723047891319a2ffb
+  subpackages:
+  - oauth
+- name: github.com/joeshaw/envdecode
+  version: 573d2abb11d7ad19d922aa80d4b7870225c20911
 - name: github.com/mreiferson/go-snappystream
   version: 028eae7ab5c4c9e2d1cb4c4ca1e53259bbe7e504
   subpackages:
