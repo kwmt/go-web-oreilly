@@ -3,14 +3,14 @@ import (
 	"net"
 	"time"
 	"io"
-	"github.com/garyburd/go-oauth/oauth"
-	"go-web-oreilly/chapter5/socialpoll/vendor/github.com/joeshaw/envdecode"
 	"log"
-	"go-web-oreilly/chapter5/socialpoll/vendor/github.com/garyburd/go-oauth/oauth"
 	"sync"
 	"net/http"
 	"net/url"
 	"strconv"
+
+	"github.com/garyburd/go-oauth/oauth"
+	"github.com/joeshaw/envdecode"
 )
 
 var conn net.Conn
