@@ -96,3 +96,29 @@ func makeRequest(req *http.Request, params url.Values) (*http.Response, error) {
 
 
 }
+
+// stopchan:受信専用 シグナルのチャネル goroutineの終了を指示(
+// votes:投票内容が送信されるチャネル
+// 戻り:シグナルのチャネル goroutineの完了を伝える
+func startTwitterStream(stopchan <-chan struct{}, votes chan <- string) <-chan struct{} {
+	stoppedchan := make(chan struct{}, 1)
+	go func() {
+		defer func() {
+			stoppedchan <- struct{}{}
+		}()
+		for {
+			select {
+			case <-stopchan:
+				log.Println("Twitterへの問い合わせを終了します...")
+				return
+			default:
+				log.Println("Twitterに問い合わせします...")
+				readFromTwitter(votes)
+				log.Println(" (待機中)")
+				time.Sleep(10 * time.Second) //待機してから再接続
+			}
+		}
+	}()
+	return stoppedchan
+}
+
