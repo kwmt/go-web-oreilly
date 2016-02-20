@@ -15,6 +15,10 @@ package main
 import (
 	"gopkg.in/mgo.v2"
 	"log"
+	"net/url"
+	"strings"
+	"net/http"
+	"encoding/json"
 )
 
 func main() {
@@ -53,4 +57,52 @@ func loadOptions() ([]string, error) {
 	}
 	iter.Close()
 	return options, iter.Err()
+}
+
+type tweet struct {
+	Text string
+}
+
+// votesチャネルは送信専用
+func readFromTwitter(votes chan<- string) {
+	options, err := loadOptions()
+	if err != nil {
+		log.Println("選択肢の読み込みに失敗しました:", err)
+		return
+	}
+
+	query := make(url.Values)
+	query.Set("track", strings.Join(options, ","))
+	req, err := http.NewRequest("POST", "https://stream.twitter.com/1.1/statuses/filter.json",
+		strings.NewReader(query.Encode()))
+	if err != nil {
+		log.Println("検索リクエストの作成に失敗しました:", err)
+		return
+	}
+	resp, err := makeRequest(req, query)
+	if err != nil {
+		log.Println("検索のリクエストに失敗しました:", err)
+		return
+	}
+	reader = resp.Body
+	decoder := json.NewDecoder(reader)
+
+	for {
+		var tweet tweet
+		// 主に接続が閉じられたなどの理由でエラーがが発生したら、ループから抜けだして、呼び出し元に戻る
+		if err := decoder.Decode(&tweet); err != nil {
+			break
+		}
+		// すべての選択肢に対して
+		for _, option := range options {
+			// ツイートの中で言及されてる場合にはvotesチャネルにその選択肢を送信する。
+			// 複数の選択肢を投票できる
+			if strings.Contains(strings.ToLower(tweet.Text), strings.ToLower(option)) {
+				log.Print("投票:", option)
+				votes <- option
+			}
+		}
+	}
+
+
 }
